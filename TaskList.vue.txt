@@ -1,0 +1,48 @@
+<template>
+  <!-- 引入Vue.Draggable实现列内任务拖拽 -->
+  <draggable
+    v-model="tasks"
+    group="kanban-tasks"
+    @end="handleDragEnd"
+    class="task-list"
+  >
+    <task-item
+      v-for="task in tasks"
+      :key="task.id"
+      :task="task"
+      @update-task="updateTask"
+    />
+  </draggable>
+</template>
+
+<script>
+import Draggable from 'vuedraggable';
+import TaskItem from './TaskItem.vue';
+
+export default {
+  components: { Draggable, TaskItem },
+  props: {
+    tasks: Array, // 接收当前列的任务列表
+    columnId: String
+  },
+  methods: {
+    // 拖拽结束后同步排序
+    handleDragEnd() {
+      this.$emit('update-task-order', {
+        columnId: this.columnId,
+        taskOrder: this.tasks.map(task => task.id)
+      });
+    },
+    updateTask(updatedTask) {
+      this.$emit('update-task', updatedTask);
+    }
+  }
+};
+</script>
+
+<style scoped>
+.task-list {
+  min-height: 200px;
+  padding: 8px;
+}
+</style>

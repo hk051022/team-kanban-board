@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+ <html lang="zh-CN">
+ <head>
+     <meta charset="UTF-8">
+     <title>团队任务看板</title>
+     <style>
+         /* 看板基础样式 */
+         .kanban-board {
+             display: flex;
+             gap: 20px;
+             padding: 20px;
+         }
+         .kanban-column {
+             width: 300px;
+             background: #f5f5f5;
+             padding: 10px;
+             border-radius: 8px;
+         }
+         .column-header {
+             font-weight: bold;
+             padding-bottom: 8px;
+             border-bottom: 1px solid #ddd;
+         }
+         .task-card {
+             background: white;
+             padding: 10px;
+             margin: 10px 0;
+             border-radius: 4px;
+             box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+         }
+         /* 任务添加按钮+表单样式 */
+         .add-task-btn {
+             background: #4CAF50;
+             color: white;
+             border: none;
+             padding: 8px 12px;
+             border-radius: 4px;
+             cursor: pointer;
+         }
+         .add-task-form {
+             margin: 10px 0;
+             display: none; /* 默认隐藏 */
+         }
+         .add-task-form input {
+             width: 100%;
+             padding: 8px;
+             margin-bottom: 8px;
+             border: 1px solid #ddd;
+             border-radius: 4px;
+         }
+         .form-btns {
+             display: flex;
+             gap: 8px;
+         }
+         .form-btns button {
+             padding: 6px 10px;
+             border: none;
+             border-radius: 4px;
+             cursor: pointer;
+         }
+         .submit-btn {
+             background: #2196F3;
+             color: white;
+         }
+         .cancel-btn {
+             background: #f44336;
+             color: white;
+         }
+     </style>
+ </head>
+ <body>
+     <div class="kanban-board">
+         <!-- 待办列（包含添加任务功能） -->
+         <div class="kanban-column">
+             <div class="column-header">待办任务</div>
+             <button class="add-task-btn">+ 添加任务</button>
+             <!-- 任务添加表单（默认隐藏） -->
+             <div class="add-task-form">
+                 <input type="text" placeholder="输入任务内容...">
+                 <div class="form-btns">
+                     <button class="submit-btn">确认添加</button>
+                     <button class="cancel-btn">取消</button>
+                 </div>
+             </div>
+             <!-- 任务卡片容器 -->
+             <div class="task-list">
+                 <!-- 任务会动态添加到这里 -->
+             </div>
+         </div>
+         <!-- 进行中列 -->
+         <div class="kanban-column">
+             <div class="column-header">进行中</div>
+             <div class="task-list"></div>
+         </div>
+         <!-- 已完成列 -->
+         <div class="kanban-column">
+             <div class="column-header">已完成</div>
+             <div class="task-list"></div>
+         </div>
+     </div>
+     <script>
+         // 获取DOM元素
+         const addBtn = document.querySelector('.add-task-btn');
+         const taskForm = document.querySelector('.add-task-form');
+         const taskInput = taskForm.querySelector('input');
+         const submitBtn = taskForm.querySelector('.submit-btn');
+         const cancelBtn = taskForm.querySelector('.cancel-btn');
+         const todoList = document.querySelector('.kanban-column:first-child .task-list');
+         // 点击“添加任务”按钮，显示表单
+         addBtn.addEventListener('click', () => {
+             taskForm.style.display = 'block';
+             taskInput.focus();
+         });
+         // 点击“取消”按钮，隐藏表单
+         cancelBtn.addEventListener('click', () => {
+             taskForm.style.display = 'none';
+             taskInput.value = ''; // 清空输入框
+         });
+         // 点击“确认添加”按钮，创建任务卡片
+         submitBtn.addEventListener('click', () => {
+             const taskContent = taskInput.value.trim();
+             if (taskContent === '') return; // 空内容不添加
+             // 创建任务卡片元素
+             const taskCard = document.createElement('div');
+             taskCard.className = 'task-card';
+             taskCard.textContent = taskContent;
+             // 添加到“待办”列
+             todoList.appendChild(taskCard);
+             // 重置表单
+             taskInput.value = '';
+             taskForm.style.display = 'none';
+         });
+     </script>
+ </body>
+ </html>

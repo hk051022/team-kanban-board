@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Team Kanban Board</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 看板头部 -->
+  <header class="kanban-header">
+    <h1>团队任务看板</h1>
+  </header>
+
+  <!-- 看板容器 -->
+  <div class="kanban-container">
+    <!-- 待办列 -->
+    <div class="kanban-column">
+      <h2>待办 (Todo)</h2>
+      <div class="kanban-card">任务1：搭建项目结构</div>
+      <div class="kanban-card">任务2：设计看板布局</div>
+    </div>
+
+    <!-- 进行中列 -->
+    <div class="kanban-column">
+      <h2>进行中 (In Progress)</h2>
+      <div class="kanban-card">任务3：编写UI代码</div>
+    </div>
+
+    <!-- 已完成列 -->
+    <div class="kanban-column">
+      <h2>已完成 (Done)</h2>
+      <div class="kanban-card">任务4：初始化仓库</div>
+    </div>
+  </div>
+</body>
+</html>
